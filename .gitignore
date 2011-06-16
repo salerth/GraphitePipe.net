@@ -1,0 +1,6 @@
+
+Example/bin/*
+Example/obj/*
+*.suo
+GraphitePipe.net/bin/*
+GraphitePipe.net/obj/*
