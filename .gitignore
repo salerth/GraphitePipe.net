@@ -4,3 +4,8 @@ Example/obj/*
 *.suo
 GraphitePipe.net/bin/*
 GraphitePipe.net/obj/*
+_ReSharper.*
+GraphitePipe Service/*
+GraphitePipe/bin/*
+*.ReSharper.user
+GraphitePipe/obj/*
