@@ -7,12 +7,13 @@ namespace Rbi.Monitoring.Graphite
 {
     public class StatsdPipe : IDisposable
     {
-        private readonly UdpClient udpClient;
+        private readonly TcpClient tcpClient;
+        //private readonly UdpClient udpClient;
         private readonly Random random = new Random();
 
         public StatsdPipe(string host, int port)
         {
-            udpClient = new UdpClient(host, port);
+            tcpClient = new TcpClient(host, port);
         }
 
         public bool Timing(string key, int value)
@@ -117,17 +118,11 @@ namespace Rbi.Monitoring.Graphite
 
         protected bool DoSend(string stat)
         {
-            try
-            {
-                var data = Encoding.Default.GetBytes(stat);
-                udpClient.Send(data, data.Length);
-                return true;
-            }
-            catch
-            {
+            var data = Encoding.Default.GetBytes(stat);
 
-            }
-            return false;
+            //udpClient.Send(data, data.Length);
+            tcpClient.GetStream().Write(data, 0, data.Length);
+            return true;
         }
 
         #region IDisposable Members
@@ -136,9 +131,9 @@ namespace Rbi.Monitoring.Graphite
         {
             try
             {
-                if (udpClient != null)
+                if (tcpClient != null)
                 {
-                    udpClient.Close();
+                    tcpClient.Close();
                 }
             }
             catch

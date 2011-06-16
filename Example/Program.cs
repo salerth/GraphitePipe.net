@@ -11,14 +11,17 @@ namespace Example
     {
         static void Main(string[] args)
         {
-            UdpClient client = new UdpClient("", 8125);
+            TcpClient client = new TcpClient("", 8080);
+            //UdpClient client = new UdpClient("", 8125);
 
-            string test = "system.glork:320|ms";
 
             Random rnd = new Random();
-            while (true)
+            for (int i = 0; i < 60; i++ )
             {
-                client.Send(Encoding.ASCII.GetBytes(test), Encoding.ASCII.GetByteCount(test));
+                string test = "stats.test.qhs.cisqhsblah.glork:" + rnd.Next(50) + "|c";
+
+                client.GetStream().Write(Encoding.ASCII.GetBytes(test), 0, Encoding.ASCII.GetByteCount(test));
+                //client.Send();
                 Thread.Sleep(rnd.Next(500, 3000));
             }
 
