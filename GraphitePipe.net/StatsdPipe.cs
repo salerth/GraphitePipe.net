@@ -118,7 +118,7 @@ namespace Rbi.Monitoring.Graphite
 
         protected bool DoSend(string stat)
         {
-            var data = Encoding.Default.GetBytes(stat);
+            var data = Encoding.Default.GetBytes(stat + "\n");
 
             //udpClient.Send(data, data.Length);
             tcpClient.GetStream().Write(data, 0, data.Length);
