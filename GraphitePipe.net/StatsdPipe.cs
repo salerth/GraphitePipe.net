@@ -7,13 +7,12 @@ namespace Rbi.Monitoring.Graphite
 {
     public class StatsdPipe : IDisposable
     {
-        private readonly TcpClient tcpClient;
-        //private readonly UdpClient udpClient;
+        private readonly UdpClient udpClient;
         private readonly Random random = new Random();
 
         public StatsdPipe(string host, int port)
         {
-            tcpClient = new TcpClient(host, port);
+            udpClient = new UdpClient(host, port);
         }
 
         public bool Timing(string key, int value)
@@ -120,8 +119,7 @@ namespace Rbi.Monitoring.Graphite
         {
             var data = Encoding.Default.GetBytes(stat + "\n");
 
-            //udpClient.Send(data, data.Length);
-            tcpClient.GetStream().Write(data, 0, data.Length);
+            udpClient.Send(data, data.Length);
             return true;
         }
 
@@ -131,12 +129,14 @@ namespace Rbi.Monitoring.Graphite
         {
             try
             {
-                if (tcpClient != null)
+                if (udpClient != null)
                 {
-                    tcpClient.Close();
+                    udpClient.Close();
                 }
             }
+// ReSharper disable EmptyGeneralCatchClause
             catch
+// ReSharper restore EmptyGeneralCatchClause
             {
             }
         }

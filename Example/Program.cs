@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 using System.Threading;
@@ -9,19 +7,20 @@ namespace Example
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            TcpClient client = new TcpClient("", 8080);
-            //UdpClient client = new UdpClient("", 8125);
+            var client = new UdpClient("10.55.110.27", 8125);
 
 
-            Random rnd = new Random();
-            for (int i = 0; i < 60; i++ )
+            var rnd = new Random();
+            for (int i = 0; i < 60; i++)
             {
-                string test = "stats.test.qhs.cisqhsblah.glork:" + rnd.Next(50) + "|c";
+                string test = "test.glork:" + rnd.Next(50) + "|c";
+                var data = Encoding.Default.GetBytes(test);
 
-                client.GetStream().Write(Encoding.ASCII.GetBytes(test), 0, Encoding.ASCII.GetByteCount(test));
-                //client.Send();
+                Console.WriteLine("sending : " + test);
+
+                client.Send(data, data.Length);
                 Thread.Sleep(rnd.Next(500, 3000));
             }
 
