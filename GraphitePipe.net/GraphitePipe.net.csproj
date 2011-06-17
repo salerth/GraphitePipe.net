@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Key.cs" />
-    <Compile Include="RollupStatsdPipe.cs" />
     <Compile Include="StatsdPipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
