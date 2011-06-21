@@ -5,7 +5,6 @@ namespace Rbi.Monitoring.Graphite
     public struct Key
     {
         public const string Root = "stat";
-        public const string RollupRoot = "roll";
 
         public string Product { get; set; }
         public string DataCentre { get; set; }
