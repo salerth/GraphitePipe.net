@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * A C# port of the statsd java example by Andrew Gwozdziewycz <andrew@meetup.com>, @apgwoz
+ * https://github.com/etsy/statsd 
+ * 
+ * Wrapped in a seperate project so we can use it as a referenced DLL
+ */
+using System;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
